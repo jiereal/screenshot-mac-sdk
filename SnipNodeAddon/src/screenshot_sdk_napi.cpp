@@ -109,6 +109,15 @@ Napi::Value StartCapture(const Napi::CallbackInfo& info)
     
     // 准备回调数据
     printf("[NAPI] StartCapture: Setting up callback handler...\n");
+    
+    // 清理之前的回调资源
+    if (CScreenshotEventHandler::_snip_finish_bcb) {
+        printf("[NAPI] StartCapture: Cleaning up previous callback...\n");
+        CScreenshotEventHandler::_snip_finish_bcb->callback.Reset();
+        CScreenshotEventHandler::_snip_finish_bcb->data.Reset();
+    }
+    
+    // 创建新的回调
     CScreenshotEventHandler::_snip_finish_bcb = std::make_shared<napi_util::BaseCallback>();
     CScreenshotEventHandler::_snip_finish_bcb->callback = Napi::Persistent(callback);
     CScreenshotEventHandler::_snip_finish_bcb->data = Napi::Persistent(info.This().As<Napi::Object>());

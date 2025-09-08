@@ -8,7 +8,7 @@ class OptimizedFlowTester {
     }
 
     async runOptimizedFlow() {
-        console.log('🚀 优化串行流程测试开始...\n');
+        console.log('🚀 优化串行流程测试开始 runOptimizedFlow...\n');
         
         try {
             // 串行执行所有测试流程
@@ -65,7 +65,7 @@ class OptimizedFlowTester {
         console.log('=' .repeat(40));
         
         const chinesePaths = [
-            '/tmp/测试1.png',
+            '/tmp/1.png',
             '/tmp/中文路径测试2.png',
             '/tmp/用户_2023年_截图3.png',
             '/tmp/测试_特殊字符_4.png'
@@ -85,8 +85,11 @@ class OptimizedFlowTester {
                 const status = sdk.isCaptureTracking();
                 
                 console.log(`   ├─ 中文路径: ${chinesePaths[i]}`);
-                sdk.startCapture(chinesePaths[i], (result) => {
-                    console.log(`   │  回调结果: ${result}`);
+                await new Promise((resolve) => {
+                    sdk.startCapture(chinesePaths[i], (result) => {
+                        console.log(`   │  回调结果: ${result}`);
+                        resolve(result);
+                    });
                 });
                 
                 console.log('   ├─ 清理...');
@@ -125,8 +128,11 @@ class OptimizedFlowTester {
                 const status = sdk.isCaptureTracking();
                 
                 console.log(`   ├─ 第 ${i} 次: 开始截图...`);
-                sdk.startCapture(`/tmp/串行测试_${i}.png`, (result) => {
-                    console.log(`   │  第 ${i} 次回调: ${result}`);
+                await new Promise((resolve) => {
+                    sdk.startCapture(`/tmp/串行测试_${i}.png`, (result) => {
+                        console.log(`   │  第 ${i} 次回调: ${result}`);
+                        resolve(result);
+                    });
                 });
                 
                 console.log(`   ├─ 第 ${i} 次: 清理...`);
@@ -155,7 +161,14 @@ class OptimizedFlowTester {
                     () => ({ name: 'version', result: sdk.version() }),
                     () => ({ name: 'isCaptureTracking', result: sdk.isCaptureTracking() }),
                     () => ({ name: 'initCapture', result: sdk.initCapture() }),
-                    () => ({ name: 'startCapture', result: sdk.startCapture('/tmp/测试.png', () => {}) }),
+                    async () => {
+                        await new Promise((resolve) => {
+                            sdk.startCapture('/tmp/测试.png', (result) => {
+                                resolve(result);
+                            });
+                        });
+                        return { name: 'startCapture', result: '完成' };
+                    },
                     () => ({ name: 'cleanupCapture', result: sdk.cleanupCapture() }),
                     () => ({ name: 'finalStatus', result: sdk.isCaptureTracking() })
                 ]
@@ -165,7 +178,14 @@ class OptimizedFlowTester {
                 steps: [
                     () => ({ name: 'version', result: sdk.version() }),
                     () => ({ name: 'initCapture', result: sdk.initCapture() }),
-                    () => ({ name: 'startCapture-中文', result: sdk.startCapture('/tmp/中文测试.png', () => {}) }),
+                    async () => {
+                        await new Promise((resolve) => {
+                            sdk.startCapture('/tmp/中文测试.png', (result) => {
+                                resolve(result);
+                            });
+                        });
+                        return { name: 'startCapture-中文', result: '完成' };
+                    },
                     () => ({ name: 'isCaptureTracking', result: sdk.isCaptureTracking() }),
                     () => ({ name: 'cleanupCapture', result: sdk.cleanupCapture() })
                 ]
@@ -266,8 +286,6 @@ async function main() {
     }
 }
 
-// 立即执行
-main().catch(console.error);
 
 // 导出供其他脚本使用
 module.exports = OptimizedFlowTester;
