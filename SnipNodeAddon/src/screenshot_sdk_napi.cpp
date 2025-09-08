@@ -15,7 +15,7 @@ NAMESPACE_SCREENSHOTSDK_BEGIN
 Napi::Value InitCapture(const Napi::CallbackInfo& info)
 {
     Napi::Env env = info.Env();
-    printf("jiereal InitCapture (NAPI)\n");
+    printf("InitCapture (NAPI)\n");
     
     // 这里可以添加初始化逻辑
     // NAPI_CHECK_ARGS_COUNT(info, 2); // 如果需要参数检查
@@ -39,7 +39,7 @@ Napi::Value StartCapture(const Napi::CallbackInfo& info)
     Napi::Env env = info.Env();
     NAPI_CHECK_ARGS_COUNT(info, 2);
     
-    printf("jiereal StartCapture (NAPI)\n");
+    printf("StartCapture (NAPI)\n");
     
     // 获取图片路径参数
     std::string image_path;
@@ -59,7 +59,7 @@ Napi::Value StartCapture(const Napi::CallbackInfo& info)
     CScreenshotEventHandler::_snip_finish_bcb->callback = Napi::Persistent(callback);
     CScreenshotEventHandler::_snip_finish_bcb->data = Napi::Persistent(info.This().As<Napi::Object>());
     
-    printf("jiereal startSnipping (NAPI)\n");
+    printf("startSnipping (NAPI)\n");
     startSnipping(image_path.c_str(), image_path.length(), CScreenshotEventHandler::OnSnipFinishCallback);
     
     return env.Undefined();

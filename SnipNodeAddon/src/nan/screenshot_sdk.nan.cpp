@@ -9,7 +9,7 @@ NAMESPACE_SCREENSHOTSDK_BEGIN
 
 void InitCapture(const FunctionCallbackInfo<Value>& args)
 {
-    printf("jiereal InitCapture");
+    printf("InitCapture");
 	/*
 	CHECK_ARGS_COUNT(2);
 
@@ -31,7 +31,7 @@ void StartCapture(const FunctionCallbackInfo<Value>& args)
 {
 	CHECK_ARGS_COUNT(2);
 
-    printf("jiereal StartCapture");
+    printf("StartCapture");
 	auto status = napi_ok;
 	node_util::UTF8String image_path;
 	GET_ARGS_VALUE(isolate, 0, UTF8String, image_path);
@@ -50,7 +50,7 @@ void StartCapture(const FunctionCallbackInfo<Value>& args)
 	CScreenshotEventHandler::_snip_finish_bcb = node_util::BaseCallbackPtr(new node_util::BaseCallback());
 	CScreenshotEventHandler::_snip_finish_bcb->callback_.Reset(isolate, pcb);
 	CScreenshotEventHandler::_snip_finish_bcb->data_.Reset(isolate, pdata);
-    printf("jiereal startSnipping");
+    printf("startSnipping");
 	// startSnipping(image_path.get(), image_path.length(), CScreenshotEventHandler::OnSnipFinishCallback);
 	startSnipping(*image_path_utf8, image_path_utf8.length(), CScreenshotEventHandler::OnSnipFinishCallback);
 }
