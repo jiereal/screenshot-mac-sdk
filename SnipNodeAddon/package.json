@@ -1,0 +1,34 @@
+{
+  "name": "@jiereal/screenshot-mac-sdk",
+  "version": "2.0.1",
+  "description": "",
+  "license": "ISC",
+  "author": "谢英杰 (YingjieXie)",
+  "main": "index.js",
+  "files": [
+    "src",
+    "statics/SnipManager.framework.dSYM.zip",
+    "statics/SnipManager.framework.zip",
+    "binding.gyp",
+    "scripts"
+  ],
+  "scripts": {
+    "prebuild": "node ./scripts/prebuild.js",
+    "build": "cd build && node -v &&  xcodebuild && cd ..",
+    "configure": "npm run unzipFramework && node-gyp configure --python /usr/local/bin/python3 -- -f xcode",
+    "postinstall": "npm run rebuild",
+    "prepublishOnly": "npm run rebuild",
+    "publishNpm": "npm publish --registry https://registry.npmjs.org/ --access public",
+    "rebuild": "node-gyp clean && npm run configure && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "unzipFramework": "unzip  -o statics/SnipManager.framework -d statics"
+  },
+  "dependencies": {
+    "@electron/rebuild": "^4.0.1",
+    "node-gyp": "^9.3.1"
+  },
+  "gypfile": true,
+  "devDependencies": {
+    "electron": "^37.3.1"
+  }
+}

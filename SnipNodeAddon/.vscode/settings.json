@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "*.ts": "typescript",
+        "*.mts": "typescript",
+        "*.ets": "typescript",
+        "sstream": "cpp"
+    }
+}
