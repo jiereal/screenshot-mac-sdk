@@ -14,17 +14,19 @@
   ],
   "scripts": {
     "prebuild": "node ./scripts/prebuild.js",
-    "build": "cd build && node -v &&  xcodebuild && cd ..",
-    "configure": "npm run unzipFramework && node-gyp configure --python /usr/local/bin/python3 -- -f xcode",
+    "build": "node-gyp build",
+    "configure": "npm run unzipFramework && node-gyp configure",
     "postinstall": "npm run rebuild",
     "prepublishOnly": "npm run rebuild",
     "publishNpm": "npm publish --registry https://registry.npmjs.org/ --access public",
-    "rebuild": "node-gyp clean && npm run configure && npm run build",
+    "rebuild": "node-gyp clean configure build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "unzipFramework": "unzip  -o statics/SnipManager.framework -d statics"
   },
   "dependencies": {
     "@electron/rebuild": "^4.0.1",
+    "bindings": "^1.5.0",
+    "node-addon-api": "^8.5.0",
     "node-gyp": "^9.3.1"
   },
   "gypfile": true,

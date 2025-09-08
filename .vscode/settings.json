@@ -1,1 +1,13 @@
-{}
+{
+    "files.associations": {
+        "*.ts": "typescript",
+        "*.mts": "typescript",
+        "*.ets": "typescript",
+        "__locale": "cpp",
+        "chrono": "cpp",
+        "functional": "cpp",
+        "stop_token": "cpp",
+        "string": "cpp",
+        "array": "cpp"
+    }
+}
