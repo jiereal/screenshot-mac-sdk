@@ -1,13 +1,14 @@
-declare module "clipboard-files" {
-  /**
-   * Read file paths from system clipboard
-   * @returns Array of file paths
-   */
-  export function readFiles(): string[];
+/**
+ * 截图 SDK 类型定义
+ */
 
-  /**
-   * Write file paths to system clipboard
-   * @param files Array of file paths to write to clipboard
-   */
-  export function writeFiles(filePaths: string[]): void;
+export interface ScreenshotManager {
+  isCaptureTracking(): boolean;
+  startCapture(imagePath: string, callback: (ret: number) => void)
 }
+
+/**
+ * 默认导出：已初始化的截图管理器实例
+ */
+declare const screenshot: ScreenshotManager;
+export default screenshot;

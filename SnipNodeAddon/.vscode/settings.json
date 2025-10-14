@@ -3,6 +3,7 @@
         "*.ts": "typescript",
         "*.mts": "typescript",
         "*.ets": "typescript",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "string": "cpp"
     }
 }

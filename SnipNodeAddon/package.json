@@ -13,15 +13,14 @@
     "scripts"
   ],
   "scripts": {
-    "prebuild": "node ./scripts/prebuild.js",
     "build": "node-gyp build",
     "configure": "npm run unzipFramework && node-gyp configure",
     "postinstall": "npm run rebuild",
     "prepublishOnly": "npm run rebuild",
     "publishNpm": "npm publish --registry https://registry.npmjs.org/ --access public",
     "rebuild": "node-gyp clean configure build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "unzipFramework": "unzip  -o statics/SnipManager.framework -d statics"
+    "unzipFramework": "unzip  -o statics/SnipManager.framework -d statics",
+    "test": "electron --inspect=9400 test/electron-test.js"
   },
   "dependencies": {
     "@electron/rebuild": "^4.0.1",

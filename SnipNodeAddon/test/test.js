@@ -1,6 +1,7 @@
-const sdk = require('./lib/index.js');
+const sdk = require('../lib/index.js');
 const path = require('path');
 
+console.error('sdk', sdk)
 class OptimizedFlowTester {
     constructor() {
         this.results = [];

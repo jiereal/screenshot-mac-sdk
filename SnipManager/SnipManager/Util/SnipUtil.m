@@ -26,14 +26,11 @@
     NSLog(@"screenShot: %@", NSStringFromRect(rect));
     CGImageRef imgRef = CGWindowListCreateImageFromArray(rect, windowsRef, kCGWindowImageDefault);
     CFRelease(windowsRef);
-    NSLog(@"sniputil.m 29");
     return imgRef;
 }
 
 + (BOOL)isPoint:(NSPoint)point inRect:(NSRect)rect
 {
-    //if (NSPointInRect(point, rect))
-    //NSLog(@"point:%@ in rect:%@",NSStringFromPoint(point),NSStringFromRect(rect));
     return NSPointInRect(point, rect);
 }
 

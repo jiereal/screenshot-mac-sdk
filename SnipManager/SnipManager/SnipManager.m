@@ -94,7 +94,6 @@ const int kKEY_ESC_CODE = 53;
 
 -(void)startCaptureWithCallBack:(SFCaptureHandler)captureHandler{
     
-    NSLog(@"startCaptureWithCallBack 97");
     if (self.isWorking) {
         return;
     }
@@ -106,7 +105,6 @@ const int kKEY_ESC_CODE = 53;
     //CFArrayRef windowArray = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSArray *windows = (__bridge NSArray *) CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSUInteger count = [windows count];
-    NSLog(@"startCaptureWithCallBack 109");
     for (NSUInteger i = 0; i < count; i++) {
         NSDictionary *windowDescriptionDictionary = windows[i];
 //        CGRect bounds;
@@ -116,7 +114,6 @@ const int kKEY_ESC_CODE = 53;
     }
     //CFRelease(windowArray);
     
-    NSLog(@"startCaptureWithCallBack 119");
     for (NSInteger index = [NSScreen screens].count - 1; index >=0; index--) {
 //        SnipWindowController *snipController = [[SnipWindowController alloc] initWithWindowNibName:@"SnipWindowController"];
         NSScreen *screen = [NSScreen screens][index];

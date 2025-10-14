@@ -76,10 +76,6 @@
                         ],
                         "xcode_settings": {
                             "OTHER_LDFLAGS": ["-Wl,-rpath,@loader_path"],
-                            "GCC_PREPROCESSOR_DEFINITIONS": [
-                                "MODULE_VERSION=@\\\"$(node -p \"require('./package.json').version\")\\\"",
-                                "NODE_ADDON_API_CPP_EXCEPTIONS"
-                            ],
                             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
                             # "ALWAYS_SEARCH_USER_PATHS": "NO",
                             #"i386", "x86_64"
@@ -119,7 +115,8 @@
                             "__MAC__",
                             "_LP64",
                             "__LP64__",
-                            "__x86_64__"
+                            "__x86_64__",
+                            "MODULE_VERSION=\"<!(node -p \"require('./package.json').version\")\""
                         ],
                         "cflags": [
                             "-m64",

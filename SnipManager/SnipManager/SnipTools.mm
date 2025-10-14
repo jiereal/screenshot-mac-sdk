@@ -45,7 +45,6 @@ static CSnipCallback g_snipCallback;
 void startSnipping(const char *savePath,int length, snipFinishCallBack callBack)
 {
 //    g_snipCallback.SetFinishCallback(callBack);
-    NSLog(@"jiereal22 startSnipping");
     // 处理截图，传回image、sucess数据
     NSString *path = [[NSString alloc] initWithUTF8String:savePath];
     [[SnipManager sharedInstance] startCaptureSavePath:path callBack:^(NSImage *image, BOOL needSave, BOOL success) {
