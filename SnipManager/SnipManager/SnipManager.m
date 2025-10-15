@@ -65,13 +65,23 @@ const int kKEY_ESC_CODE = 53;
     NSURL *pathUrl;
     if (path != nil && path.length > 1) {
         if (![path containsString:@"file://"]) {
-            pathUrl = [NSURL URLWithString: [[NSString stringWithFormat:@"file://%@", path] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            pathUrl = [NSURL fileURLWithPath: [path stringByRemovingPercentEncoding]];
         }
     }
+    
+    NSString *dirPath = [path stringByDeletingLastPathComponent];
+    NSLog(@"--------- dirPath : %@ ---------- ", dirPath);
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:dirPath isDirectory:&isDir];
+    if (!exists) {
+        NSLog(@"--------- dirPath not exists: %@ ---------- ", dirPath);
+        [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
     __block BOOL success = NO;
     NSLog(@"--------- URL : %@ ---------- ", pathUrl);
     [self startCaptureWithCallBack:^(NSImage *image, BOOL needSave, BOOL isHighResolution) {
-        NSLog(@"--------- URL : %@ ---------- ");
+        NSLog(@"--------- URL : %@ ---------- ", pathUrl);
         success = image != nil;
         if (image != nil && pathUrl != nil && needSave == NO) {
             NSLog(@"--------- 准备保存 ---------- %@",pathUrl);
@@ -83,8 +93,12 @@ const int kKEY_ESC_CODE = 53;
                 NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
                 [newRep setSize:[image size]];
                 NSData *imageData = [newRep representationUsingType:NSPNGFileType properties:nil];
-                [imageData writeToURL:pathUrl atomically:YES];
-            }else {
+                NSLog(@"--------- 保存 imageData.length = %ld", imageData.length);
+                NSError *error;
+                BOOL ret = [imageData writeToURL:pathUrl options:NSDataWritingAtomic error:&error];
+                NSLog(@"--------- 保存完成，%@ ---------- %@", ret ? @"成功" : @"失败", error);
+            } else {
+                NSLog(@"--------- 保存失败，cgRef = nil ---------- ");
                 success = NO;
             }
         }

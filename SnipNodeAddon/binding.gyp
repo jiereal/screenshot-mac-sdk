@@ -79,9 +79,9 @@
                             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
                             # "ALWAYS_SEARCH_USER_PATHS": "NO",
                             #"i386", "x86_64"
-                            "ARCHS": ["x86_64"],
+                            #"ARCHS": ["x86_64"],
                             "MACOSX_DEPLOYMENT_TARGET": "10.14",
-                            "VALID_ARCHS": ["x86_64"],
+                            #"VALID_ARCHS": ["x86_64"],
                             "CC": "clang",
                             "CXX": "clang++",
                             "GCC_VERSION": "com.apple.compilers.llvm.clang.1_0",
@@ -115,18 +115,18 @@
                             "__MAC__",
                             "_LP64",
                             "__LP64__",
-                            "__x86_64__",
+                            #"__x86_64__",
                             "MODULE_VERSION=\"<!(node -p \"require('./package.json').version\")\""
                         ],
                         "cflags": [
                             "-m64",
-                            "-arch x86_64",
+                            #"-arch x86_64",
                             "-DLARGEFILE64_SOURCE",
                             "-D_FILE_OFFSET_BITS=64"
                         ],
                         "cflags_cc": [
                             "-m64",
-                            "-arch x86_64",
+                            #"-arch x86_64",
                             "-DLARGEFILE64_SOURCE",
                             "-D_FILE_OFFSET_BITS=64"
                         ]

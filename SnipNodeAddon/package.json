@@ -15,6 +15,7 @@
   "scripts": {
     "build": "node-gyp build",
     "configure": "npm run unzipFramework && node-gyp configure",
+    "preinstall": "node pre_build.js",
     "postinstall": "npm run rebuild",
     "prepublishOnly": "npm run rebuild",
     "publishNpm": "npm publish --registry https://registry.npmjs.org/ --access public",
