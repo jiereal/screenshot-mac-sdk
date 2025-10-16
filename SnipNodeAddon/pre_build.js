@@ -52,7 +52,7 @@ function copyFrameworkFiles() {
         const frameworkDest = path.join(staticsDir, 'SnipManager.framework');
         
         if (fs.existsSync(frameworkSrc)) {
-            execSync(`cp -r "${frameworkSrc}" "${staticsDir}"`, { stdio: 'inherit' });
+            execSync(`cp -R "${frameworkSrc}" "${staticsDir}"`, { stdio: 'inherit' });
             console.log('SnipManager.framework copied successfully');
         } else {
             throw new Error(`Framework not found at: ${frameworkSrc}`);
@@ -63,7 +63,7 @@ function copyFrameworkFiles() {
         const dSymDest = path.join(staticsDir, 'SnipManager.framework.dSYM');
         
         if (fs.existsSync(dSymSrc)) {
-            execSync(`cp -r "${dSymSrc}" "${staticsDir}"`, { stdio: 'inherit' });
+            execSync(`cp -R "${dSymSrc}" "${staticsDir}"`, { stdio: 'inherit' });
             console.log('SnipManager.framework.dSYM copied successfully');
         } else {
             console.warn('Warning: dSYM file not found, skipping...');
