@@ -22,3 +22,4 @@ SnipNodeAddon/statics/__MACOSX
 /SnipNodeAddon/bin
 package-lock.json
 SnipManager/build
+SnipNodeAddon/statics

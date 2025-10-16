@@ -75,7 +75,7 @@
                             "./statics/SnipManager.framework/Versions/A/Headers/",
                         ],
                         "xcode_settings": {
-                            "OTHER_LDFLAGS": ["-Wl,-rpath,@loader_path"],
+                            "OTHER_LDFLAGS": ["-Wl,-rpath,@loader_path", "-Wl,-rpath,@executable_path/../Resources"],
                             "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
                             # "ALWAYS_SEARCH_USER_PATHS": "NO",
                             #"i386", "x86_64"
