@@ -1,6 +1,10 @@
-#ifndef VERSION_H
-#define VERSION_H
+#pragma once
+#include <string>
 
-#define MODULE_VERSION "2.0.1"
+#ifndef MODULE_VERSION
+#define MODULE_VERSION "0.0.0-unknown"
+#endif
 
-#endif // VERSION_H
+inline std::string GetModuleVersion() {
+    return std::string(MODULE_VERSION);
+}

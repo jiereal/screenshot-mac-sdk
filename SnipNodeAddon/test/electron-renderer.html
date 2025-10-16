@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Screenshot SDK 测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: #fafafa;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #555;
+        }
+        button {
+            background: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        button:hover {
+            background: #005999;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .log-container {
+            margin-top: 20px;
+        }
+        .log {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖥️ Electron Screenshot SDK 测试</h1>
+        
+        <div class="section">
+            <h3>基础功能测试</h3>
+            <button onclick="testVersion()">获取版本</button>
+            <button onclick="testStatus()">检查状态</button>
+            <button onclick="testInit()">初始化</button>
+            <button onclick="testCleanup()">清理</button>
+        </div>
+        
+        <div class="section">
+            <h3>截图测试</h3>
+            <input type="text" id="customPath" placeholder="输入保存路径" style="width: 300px; padding: 8px; margin-right: 10px;">
+            <button onclick="testCustomCapture()">自定义截图</button>
+        </div>
+        
+        <div class="section">
+            <h3>测试套件</h3>
+            <button onclick="runFullTest()">完整测试</button>
+            <button onclick="runChineseTest()">中文路径测试</button>
+            <button onclick="runLoopTest()">循环测试</button>
+            <button onclick="clearLog()">清空日志</button>
+        </div>
+        
+        <div class="log-container">
+            <h3>测试日志</h3>
+            <div id="log" class="log">等待开始测试...</div>
+        </div>
+    </div>
+
+    <script>
+        const log = document.getElementById('log');
+        
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'success' ? 'success' : type === 'error' ? 'error' : 'info';
+            log.innerHTML += `[${timestamp}] <span class="${className}">${message}</span>\n`;
+            log.scrollTop = log.scrollHeight;
+        }
+        
+        async function testVersion() {
+            try {
+                const result = await window.electronAPI.getVersion();
+                if (result.success) {
+                    addLog(`SDK版本: ${result.data}`, 'success');
+                } else {
+                    addLog(`获取版本失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addLog(`测试版本时出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testStatus() {
+            try {
+                const result = await window.electronAPI.getStatus();
+                if (result.success) {
+                    addLog(`当前状态: ${result.data ? '截图中' : '空闲'}`, 'info');
+                } else {
+                    addLog(`获取状态失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addLog(`测试状态时出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testInit() {
+            try {
+                const result = await window.electronAPI.initCapture();
+                if (result.success) {
+                    addLog('初始化成功', 'success');
+                } else {
+                    addLog(`初始化失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addLog(`初始化时出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCleanup() {
+            try {
+                const result = await window.electronAPI.cleanupCapture();
+                if (result.success) {
+                    addLog('清理成功', 'success');
+                } else {
+                    addLog(`清理失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addLog(`清理时出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCustomCapture() {
+            const customPath = document.getElementById('customPath').value.trim();
+            const savePath = customPath || window.electronAPI.pathJoin('test-output', 'custom-test.png');
+            
+            try {
+                addLog(`开始截图: ${savePath}`, 'info');
+                const result = await window.electronAPI.startCapture(savePath);
+                if (result.success) {
+                    addLog(`截图完成: ${result.data}`, 'success');
+                } else {
+                    addLog(`截图失败: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                addLog(`截图时出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function runFullTest() {
+            try {
+                addLog('🚀 开始完整测试...', 'info');
+                const result = await window.electronAPI.runFullTest();
+                
+                if (result.success) {
+                    addLog('✅ 完整测试完成:', 'success');
+                    result.results.forEach(r => {
+                        addLog(`  ${r.step}: ${r.status === 'success' ? '✅' : '❌'} ${r.result || r.message || ''}`, 
+                              r.status === 'success' ? 'success' : 'error');
+                    });
+                } else {
+                    addLog('❌ 完整测试失败', 'error');
+                }
+            } catch (error) {
+                addLog(`完整测试出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function runChineseTest() {
+            try {
+                addLog('🈳 开始中文路径测试...', 'info');
+                const result = await window.electronAPI.runChineseTest();
+                
+                if (result.success) {
+                    addLog('✅ 中文路径测试完成:', 'success');
+                    result.results.forEach(r => {
+                        addLog(`  ${r.step}: ${r.status === 'success' ? '✅' : '❌'} ${r.path}`, 
+                              r.status === 'success' ? 'success' : 'error');
+                    });
+                } else {
+                    addLog('❌ 中文路径测试失败', 'error');
+                }
+            } catch (error) {
+                addLog(`中文路径测试出错: ${error.message}`, 'error');
+            }
+        }
+        
+        async function runLoopTest() {
+            try {
+                addLog('🔄 开始循环测试...', 'info');
+                const result = await window.electronAPI.runLoopTest();
+                
+                if (result.success) {
+                    addLog('✅ 循环测试完成:', 'success');
+                    result.results.forEach(r => {
+                        addLog(`  ${r.step}: ${r.status === 'success' ? '✅' : '❌'}`, 
+                              r.status === 'success' ? 'success' : 'error');
+                    });
+                } else {
+                    addLog('❌ 循环测试失败', 'error');
+                }
+            } catch (error) {
+                addLog(`循环测试出错: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearLog() {
+            log.innerHTML = '日志已清空...\n';
+        }
+        
+        // 页面加载完成后的欢迎信息
+        window.addEventListener('load', () => {
+            addLog('Electron 测试环境已准备就绪', 'success');
+            testVersion(); // 自动获取版本信息
+        });
+    </script>
+</body>
+</html>

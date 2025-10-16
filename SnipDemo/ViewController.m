@@ -29,7 +29,8 @@ void callback(int ret) {
 
 //startSnipping
 - (IBAction)snipClick:(id)sender {
-    NSString *path = @"/Users/01190196/Desktop/1.png";
+    NSInteger timestamp = (NSInteger)([[NSDate date] timeIntervalSince1970] * 1000);
+    NSString *path = [[NSString stringWithFormat:@"~/Library/Application Support/fslinkerstd/cache/capture/%@.png", @(timestamp)] stringByExpandingTildeInPath];
     startSnipping([path UTF8String], (int)(path.length), (void *)callback);
 }
 

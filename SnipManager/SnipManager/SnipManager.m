@@ -65,13 +65,23 @@ const int kKEY_ESC_CODE = 53;
     NSURL *pathUrl;
     if (path != nil && path.length > 1) {
         if (![path containsString:@"file://"]) {
-            pathUrl = [NSURL URLWithString: [[NSString stringWithFormat:@"file://%@", path] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            pathUrl = [NSURL fileURLWithPath: [path stringByRemovingPercentEncoding]];
         }
     }
+    
+    NSString *dirPath = [path stringByDeletingLastPathComponent];
+    NSLog(@"--------- dirPath : %@ ---------- ", dirPath);
+    BOOL isDir;
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:dirPath isDirectory:&isDir];
+    if (!exists) {
+        NSLog(@"--------- dirPath not exists: %@ ---------- ", dirPath);
+        [[NSFileManager defaultManager] createDirectoryAtPath:dirPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
     __block BOOL success = NO;
     NSLog(@"--------- URL : %@ ---------- ", pathUrl);
     [self startCaptureWithCallBack:^(NSImage *image, BOOL needSave, BOOL isHighResolution) {
-        NSLog(@"--------- URL : %@ ---------- ");
+        NSLog(@"--------- URL : %@ ---------- ", pathUrl);
         success = image != nil;
         if (image != nil && pathUrl != nil && needSave == NO) {
             NSLog(@"--------- 准备保存 ---------- %@",pathUrl);
@@ -83,8 +93,12 @@ const int kKEY_ESC_CODE = 53;
                 NSBitmapImageRep *newRep = [[NSBitmapImageRep alloc] initWithCGImage:cgRef];
                 [newRep setSize:[image size]];
                 NSData *imageData = [newRep representationUsingType:NSPNGFileType properties:nil];
-                [imageData writeToURL:pathUrl atomically:YES];
-            }else {
+                NSLog(@"--------- 保存 imageData.length = %ld", imageData.length);
+                NSError *error;
+                BOOL ret = [imageData writeToURL:pathUrl options:NSDataWritingAtomic error:&error];
+                NSLog(@"--------- 保存完成，%@ ---------- %@", ret ? @"成功" : @"失败", error);
+            } else {
+                NSLog(@"--------- 保存失败，cgRef = nil ---------- ");
                 success = NO;
             }
         }
@@ -94,7 +108,6 @@ const int kKEY_ESC_CODE = 53;
 
 -(void)startCaptureWithCallBack:(SFCaptureHandler)captureHandler{
     
-    NSLog(@"startCaptureWithCallBack 97");
     if (self.isWorking) {
         return;
     }
@@ -106,7 +119,6 @@ const int kKEY_ESC_CODE = 53;
     //CFArrayRef windowArray = CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSArray *windows = (__bridge NSArray *) CGWindowListCopyWindowInfo(kCGWindowListOptionOnScreenOnly, kCGNullWindowID);
     NSUInteger count = [windows count];
-    NSLog(@"startCaptureWithCallBack 109");
     for (NSUInteger i = 0; i < count; i++) {
         NSDictionary *windowDescriptionDictionary = windows[i];
 //        CGRect bounds;
@@ -116,7 +128,6 @@ const int kKEY_ESC_CODE = 53;
     }
     //CFRelease(windowArray);
     
-    NSLog(@"startCaptureWithCallBack 119");
     for (NSInteger index = [NSScreen screens].count - 1; index >=0; index--) {
 //        SnipWindowController *snipController = [[SnipWindowController alloc] initWithWindowNibName:@"SnipWindowController"];
         NSScreen *screen = [NSScreen screens][index];

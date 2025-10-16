@@ -10,14 +10,19 @@
             ],
             "include_dirs": [
                 ".",
+                "src",
+                "<!(node -p \"require('node-addon-api').include_dir\")"
+            ],
+            "defines": [
+                "NODE_ADDON_API_CPP_EXCEPTIONS"
             ],
             "sources": [
                 "src/framework.h",
                 "src/pch.h",
                 "src/pch.cpp",
-                "src/screenshot_event_handler.h",
-                "src/screenshot_event_handler.cpp",
-                "src/screenshot_sdk.cpp",
+                "src/screenshot_event_handler_napi.h",
+                "src/screenshot_event_handler_napi.cpp",
+                "src/screenshot_sdk_napi.cpp",
                 "src/define/sdk_define.h",
                 "src/node_async_queue.h",
                 "src/node_async_queue.cpp",
@@ -25,84 +30,13 @@
                 "src/node_event_handler.cpp",
                 "src/node_helper.h",
                 "src/node_helper.cpp",
+                "src/napi_helper.h",
+                "src/napi_helper.cpp",
+            ],
+            "dependencies": [
+                "<!(node -p \"require('node-addon-api').gyp\")"
             ],
             "conditions": [
-                [
-                    "OS=='win'",
-                    {
-                        "copies": [{
-                            "destination": "<(PRODUCT_DIR)",
-                            "files": [
-                            ]
-                        }],
-                        "defines": [
-                            "WIN32",
-                            "WIN32_LEAN_AND_MEAN"
-                        ],
-                        "library_dirs": [
-                            "../../lib/release/",
-                        ],
-                        "link_settings": {
-                            "libraries": [
-                                "-slsdk.lib",
-                            ]
-                        },
-                        "msvs_settings": {
-                            "VCCLCompilerTool": {
-                                # "WarningLevel": "3",
-                                # "DisableSpecificWarnings": ["4819"],
-                                # "WarnAsError": "false",
-                                # "ExceptionHandling": "0",
-                                "AdditionalOptions": [
-                                    # "/EHsc",
-                                    "/utf-8"
-                                ]
-                            }
-                        },
-                        "defines!": [
-                            # "_USING_V110_SDK71_",
-                            # "_HAS_EXCEPTIONS=0"
-                        ],
-                        "sources": [
-                            "src/win_delay_load_hook.cpp",
-                            "src/framework.h",
-                        ],
-                        "include_dirs": [
-                            "../../inc/node/",
-                        ],
-                        "configurations": {
-                            "Release": {
-                                "msvs_settings": {
-                                    "VCCLCompilerTool": {
-                                        # 多线程 MT (/MT)
-                                        "RuntimeLibrary": "0",
-                                        # 完全优化 /Os
-                                        "Optimization": "2",
-                                        # 使用内部函数 /Oi
-                                        "EnableIntrinsicFunctions": "true",
-                                        # 程序数据库 (/Zi)
-                                        "DebugInformationFormat": "3",
-                                        "AdditionalOptions": [
-                                        ]
-                                    }
-                                },
-                            },
-                            "Debug": {
-                                "msvs_settings": {
-                                    "VCCLCompilerTool": {
-                                        "RuntimeLibrary": "3",
-                                        # "WarningLevel": "3",
-                                        # "DisableSpecificWarnings": ["4819"],
-                                        # "WarnAsError": "false",
-                                        # "ExceptionHandling": "0",
-                                        "AdditionalOptions": [
-                                        ]
-                                    }
-                                },
-                            }
-                        }
-                    }
-                ],
                 [
                     "OS=='mac'",
                     {
@@ -113,7 +47,8 @@
                             ]
                         }],
                         "defines": [
-                            "__MAC__"
+                            "__MAC__",
+                            "NODE_ADDON_API_CPP_EXCEPTIONS"
                         ],
                         # "mac_framework_dirs": [
                         #     "${PROJECT_DIR}"
@@ -140,15 +75,13 @@
                             "./statics/SnipManager.framework/Versions/A/Headers/",
                         ],
                         "xcode_settings": {
-                            "OTHER_LDFLAGS": ["-Wl,-rpath,@loader_path"],
-                            "GCC_PREPROCESSOR_DEFINITIONS": [
-                                "MODULE_VERSION=@\\\"$(node -p \"require('./package.json').version\")\\\""
-                            ],
+                            "OTHER_LDFLAGS": ["-Wl,-rpath,@loader_path", "-Wl,-rpath,@executable_path/../Resources"],
+                            "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
                             # "ALWAYS_SEARCH_USER_PATHS": "NO",
                             #"i386", "x86_64"
-                            "ARCHS": ["x86_64"],
+                            #"ARCHS": ["x86_64"],
                             "MACOSX_DEPLOYMENT_TARGET": "10.14",
-                            "VALID_ARCHS": ["x86_64"],
+                            #"VALID_ARCHS": ["x86_64"],
                             "CC": "clang",
                             "CXX": "clang++",
                             "GCC_VERSION": "com.apple.compilers.llvm.clang.1_0",
@@ -182,17 +115,18 @@
                             "__MAC__",
                             "_LP64",
                             "__LP64__",
-                            "__x86_64__"
+                            #"__x86_64__",
+                            "MODULE_VERSION=\"<!(node -p \"require('./package.json').version\")\""
                         ],
                         "cflags": [
                             "-m64",
-                            "-arch x86_64",
+                            #"-arch x86_64",
                             "-DLARGEFILE64_SOURCE",
                             "-D_FILE_OFFSET_BITS=64"
                         ],
                         "cflags_cc": [
                             "-m64",
-                            "-arch x86_64",
+                            #"-arch x86_64",
                             "-DLARGEFILE64_SOURCE",
                             "-D_FILE_OFFSET_BITS=64"
                         ]

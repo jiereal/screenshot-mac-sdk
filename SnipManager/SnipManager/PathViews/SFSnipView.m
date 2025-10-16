@@ -94,12 +94,6 @@ const int kDRAG_POINT_LEN = 5;
     [self.toolContainer setHidden:YES];
 }
 
-//- (void)mouseMoved:(NSEvent *)theEvent
-//{
-//    [super mouseMoved:theEvent];
-//    NSLog(@"snipview track mouse moved:%@",self);
-//    
-//}
 - (void)showTip
 {
     NSPoint mouseLocation = [NSEvent mouseLocation];

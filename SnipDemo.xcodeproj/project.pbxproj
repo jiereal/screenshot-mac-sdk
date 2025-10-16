@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		899DBE252E9F3E12000EBB53 /* SnipManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 899DBE242E9F3CD8000EBB53 /* SnipManager.framework */; };
 		D2CA368F2CA56E6D0018979E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CA368E2CA56E6D0018979E /* AppDelegate.m */; };
 		D2CA36922CA56E6D0018979E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D2CA36912CA56E6D0018979E /* ViewController.m */; };
 		D2CA36942CA56E700018979E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2CA36932CA56E700018979E /* Assets.xcassets */; };
@@ -18,6 +19,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		899DBE232E9F3CD8000EBB53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 899DBE1F2E9F3CD8000EBB53 /* SnipManager.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5E0274E9221E9CBD009BCB37;
+			remoteInfo = SnipManager;
+		};
 		D2CA36A02CA56E700018979E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2CA36822CA56E6D0018979E /* Project object */;
@@ -42,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		899DBE1F2E9F3CD8000EBB53 /* SnipManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SnipManager.xcodeproj; path = SnipManager/SnipManager.xcodeproj; sourceTree = SOURCE_ROOT; };
 		D2CA368A2CA56E6D0018979E /* SnipDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnipDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2CA368D2CA56E6D0018979E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D2CA368E2CA56E6D0018979E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -59,15 +68,12 @@
 		D2ED1A332E1D3B220029517F /* SnipManager.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = SnipManager.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		D2ED1A342E1D3B220029517F /* SnipManager */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = SnipManager; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
-
 /* Begin PBXFrameworksBuildPhase section */
 		D2CA36872CA56E6D0018979E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899DBE252E9F3E12000EBB53 /* SnipManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,10 +94,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		899DBE202E9F3CD8000EBB53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				899DBE242E9F3CD8000EBB53 /* SnipManager.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D2CA36812CA56E6D0018979E = {
 			isa = PBXGroup;
 			children = (
-				D2ED1A342E1D3B220029517F /* SnipManager */,
 				D2CA368C2CA56E6D0018979E /* SnipDemo */,
 				D2CA36A22CA56E700018979E /* SnipDemoTests */,
 				D2CA36AC2CA56E700018979E /* SnipDemoUITests */,
@@ -113,6 +126,7 @@
 		D2CA368C2CA56E6D0018979E /* SnipDemo */ = {
 			isa = PBXGroup;
 			children = (
+				899DBE1F2E9F3CD8000EBB53 /* SnipManager.xcodeproj */,
 				D2CA368D2CA56E6D0018979E /* AppDelegate.h */,
 				D2CA368E2CA56E6D0018979E /* AppDelegate.m */,
 				D2CA36902CA56E6D0018979E /* ViewController.h */,
@@ -172,9 +186,6 @@
 			);
 			dependencies = (
 			);
-			fileSystemSynchronizedGroups = (
-				D2ED1A342E1D3B220029517F /* SnipManager */,
-			);
 			name = SnipDemo;
 			productName = SnipDemo;
 			productReference = D2CA368A2CA56E6D0018979E /* SnipDemo.app */;
@@ -193,9 +204,6 @@
 			dependencies = (
 				D2CA36A12CA56E700018979E /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				D2ED1A342E1D3B220029517F /* SnipManager */,
-			);
 			name = SnipDemoTests;
 			productName = SnipDemoTests;
 			productReference = D2CA369F2CA56E700018979E /* SnipDemoTests.xctest */;
@@ -213,9 +221,6 @@
 			);
 			dependencies = (
 				D2CA36AB2CA56E700018979E /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				D2ED1A342E1D3B220029517F /* SnipManager */,
 			);
 			name = SnipDemoUITests;
 			productName = SnipDemoUITests;
@@ -257,6 +262,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 899DBE202E9F3CD8000EBB53 /* Products */;
+					ProjectRef = 899DBE1F2E9F3CD8000EBB53 /* SnipManager.xcodeproj */;
+				},
+				{
 					ProductGroup = D2ED1A352E1D3B220029517F /* Products */;
 					ProjectRef = D2ED1A332E1D3B220029517F /* SnipManager.xcodeproj */;
 				},
@@ -271,6 +280,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		899DBE242E9F3CD8000EBB53 /* SnipManager.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SnipManager.framework;
+			remoteRef = 899DBE232E9F3CD8000EBB53 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D2ED1A7E2E1D3B230029517F /* SnipManager.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -485,7 +501,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -493,11 +515,20 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/SnipManager/SnipManager/**",
+				);
 			};
 			name = Debug;
 		};
@@ -510,7 +541,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -518,11 +555,20 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 11.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SYSTEM_HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/SnipManager/SnipManager/**",
+				);
 			};
 			name = Release;
 		};
@@ -532,7 +578,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemoTests";
@@ -548,7 +604,17 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemoTests";
@@ -563,7 +629,17 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemoUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -577,7 +653,17 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/EagerLinkingTBDs/Release",
+					"$(PROJECT_DIR)/SnipManager/build/Release",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/arm64/Binary",
+					"$(PROJECT_DIR)/SnipManager/build/SnipManager.build/Release/SnipManager.build/Objects-normal/x86_64/Binary",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "-23.SnipDemoUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
