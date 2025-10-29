@@ -12,7 +12,10 @@ napi_util::BaseCallbackPtr CScreenshotEventHandler::_snip_finish_bcb = nullptr;
 
 void CScreenshotEventHandler::OnSnipFinishCallback(int ret)
 {
-    // 使用异步队列调用 Node.js 线程安全的回调
+    // 仅当回调已注册时才推送异步任务
+    if (!_snip_finish_bcb) {
+        return;
+    }
     node_util::node_async_call::async_call([=]() {
         CScreenshotEventHandler::GetInstance()->Node_OnSnipFinishCallback(_snip_finish_bcb, ret);
     });
